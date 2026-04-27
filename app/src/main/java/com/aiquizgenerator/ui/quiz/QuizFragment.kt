@@ -39,6 +39,17 @@ class QuizFragment : Fragment() {
     }
 
     private fun updateProgress(i: Int){b.tvQuestionProgress.text="Question ${i+1} of ${vm.questions.size}";b.progressBar.max=vm.questions.size;b.progressBar.progress=i+1;b.tvAnswered.text="Answered: ${vm.getAnsweredCount()}";b.tvMarked.text="Marked: ${vm.getMarkedCount()}";b.tvSkipped.text="Skipped: ${vm.getUnansweredCount()}"}
-    private fun updateMarkBtn(i: Int){val m=vm.questions.getOrNull(i)?.isMarkedForReview?:false;b.btnMarkReview.text=if(m)"Unmark Review"else"Mark for Review";b.btnMarkReview.backgroundTintList=requireContext().getColorStateList(if(m)R.color.color_marked else R.color.color_surface_variant)}
-    override fun onDestroyView(){super.onDestroyView();_b=null}
+    private fun updateMarkBtn(i: Int) {
+        val m = vm.questions.getOrNull(i)?.isMarkedForReview ?: false
+
+        b.btnMarkReview.text =
+            if (m) "Unmark Review"
+            else "Mark for Review"
+
+        b.btnMarkReview.backgroundTintList =
+            requireContext().getColorStateList(
+                if (m) R.color.color_marked
+                else R.color.color_surface_variant
+            )
+    }
 }
