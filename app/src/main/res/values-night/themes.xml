@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.AIQuizGenerator" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#8B9BFF</item>
+        <item name="colorOnPrimary">#1A1C2E</item>
+        <item name="colorSurface">#1E2035</item>
+        <item name="colorOnSurface">#E8EAFF</item>
+        <item name="colorError">#FF6B6B</item>
+        <item name="android:colorBackground">#141628</item>
+    </style>
+</resources>

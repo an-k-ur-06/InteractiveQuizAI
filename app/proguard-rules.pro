@@ -1,0 +1,8 @@
+-keep class com.aiquizgenerator.data.** { *; }
+-keep class com.google.gson.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
+-dontwarn okhttp3.**
+-dontwarn retrofit2.**
+-dontwarn org.apache.poi.**
+-dontwarn com.tom_roush.pdfbox.**

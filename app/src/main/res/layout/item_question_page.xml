@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp" app:cardBackgroundColor="@color/color_surface" app:cardElevation="2dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="20dp">
+                <TextView android:id="@+id/tvQuestionNumber"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Q1" android:textSize="13sp" android:textColor="@color/color_primary"
+                    android:textStyle="bold" android:background="@color/color_surface_variant"
+                    android:paddingHorizontal="12dp" android:paddingVertical="4dp"/>
+                <TextView android:id="@+id/tvQuestion"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Question text" android:textSize="17sp"
+                    android:textColor="@color/color_on_surface" android:lineSpacingExtra="4dp"
+                    android:layout_marginTop="12dp"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOptionA" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp"
+            android:text="A. Option" android:textSize="15sp" android:gravity="start|center_vertical"
+            android:minHeight="56dp" android:paddingHorizontal="16dp"
+            app:cornerRadius="12dp" style="@style/Widget.Material3.Button.OutlinedButton"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOptionB" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="10dp"
+            android:text="B. Option" android:textSize="15sp" android:gravity="start|center_vertical"
+            android:minHeight="56dp" android:paddingHorizontal="16dp"
+            app:cornerRadius="12dp" style="@style/Widget.Material3.Button.OutlinedButton"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOptionC" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="10dp"
+            android:text="C. Option" android:textSize="15sp" android:gravity="start|center_vertical"
+            android:minHeight="56dp" android:paddingHorizontal="16dp"
+            app:cornerRadius="12dp" style="@style/Widget.Material3.Button.OutlinedButton"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOptionD" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="10dp"
+            android:text="D. Option" android:textSize="15sp" android:gravity="start|center_vertical"
+            android:minHeight="56dp" android:paddingHorizontal="16dp"
+            app:cornerRadius="12dp" style="@style/Widget.Material3.Button.OutlinedButton"/>
+    </LinearLayout>
+</ScrollView>

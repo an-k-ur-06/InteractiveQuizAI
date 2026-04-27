@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/color_background">
+        <LinearLayout android:id="@+id/topBar"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:padding="12dp"
+            android:gravity="center_vertical" android:background="@color/color_surface"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOpenNav"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Questions" style="@style/Widget.Material3.Button.OutlinedButton"
+                app:cornerRadius="8dp"/>
+            <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+            <TextView android:id="@+id/tvTimer"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="15:00" android:textSize="22sp" android:textStyle="bold"
+                android:textColor="@color/color_primary" android:fontFamily="monospace"
+                android:background="@color/color_surface_variant"
+                android:paddingHorizontal="12dp" android:paddingVertical="6dp"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/statsRow"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:paddingHorizontal="16dp" android:paddingVertical="6dp"
+            android:background="@color/color_surface"
+            app:layout_constraintTop_toBottomOf="@id/topBar">
+            <TextView android:id="@+id/tvAnswered" android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="Answered: 0" android:textSize="12sp"
+                android:textColor="@color/color_answered" android:gravity="center"/>
+            <TextView android:id="@+id/tvMarked" android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="Marked: 0" android:textSize="12sp"
+                android:textColor="@color/color_marked" android:gravity="center"/>
+            <TextView android:id="@+id/tvSkipped" android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="Skipped: 0" android:textSize="12sp"
+                android:textColor="@color/color_unanswered_text" android:gravity="center"/>
+        </LinearLayout>
+        <ProgressBar android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent" android:layout_height="4dp"
+            android:progressTint="@color/color_primary"
+            app:layout_constraintTop_toBottomOf="@id/statsRow"/>
+        <TextView android:id="@+id/tvQuestionProgress"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Question 1 of 10" android:textSize="13sp"
+            android:textColor="@color/color_on_surface_variant"
+            android:layout_marginStart="16dp" android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@id/progressBar"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerQuiz"
+            android:layout_width="match_parent" android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvQuestionProgress"
+            app:layout_constraintBottom_toTopOf="@id/bottomBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <LinearLayout android:id="@+id/bottomBar"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:background="@color/color_surface"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:paddingHorizontal="16dp" android:paddingTop="8dp">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMarkReview"
+                    android:layout_width="0dp" android:layout_height="44dp"
+                    android:layout_weight="1" android:layout_marginEnd="8dp"
+                    android:text="Mark for Review" android:textSize="12sp"
+                    style="@style/Widget.Material3.Button.OutlinedButton" app:cornerRadius="8dp"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSaveNext"
+                    android:layout_width="0dp" android:layout_height="44dp"
+                    android:layout_weight="1" android:text="Save and Next"
+                    android:textSize="12sp" app:cornerRadius="8dp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:paddingHorizontal="16dp"
+                android:paddingTop="8dp" android:paddingBottom="16dp">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPrevious"
+                    android:layout_width="0dp" android:layout_height="48dp"
+                    android:layout_weight="1" android:layout_marginEnd="8dp"
+                    android:text="Prev" android:textSize="14sp"
+                    style="@style/Widget.Material3.Button.OutlinedButton" app:cornerRadius="8dp"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="0dp" android:layout_height="48dp"
+                    android:layout_weight="1.2" android:layout_marginEnd="8dp"
+                    android:text="Submit" android:textSize="14sp"
+                    android:backgroundTint="@color/color_error" app:cornerRadius="8dp"/>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="0dp" android:layout_height="48dp"
+                    android:layout_weight="1" android:text="Next"
+                    android:textSize="14sp"
+                    style="@style/Widget.Material3.Button.TonalButton" app:cornerRadius="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout android:id="@+id/navPanel"
+        android:layout_width="280dp" android:layout_height="match_parent"
+        android:orientation="vertical" android:background="@color/color_surface"
+        android:layout_gravity="end" android:padding="16dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Question Navigator" android:textSize="18sp" android:textStyle="bold"
+            android:textColor="@color/color_on_surface" android:layout_marginBottom="16dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvQuestionNav"
+            android:layout_width="match_parent" android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
