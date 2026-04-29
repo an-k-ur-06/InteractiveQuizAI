@@ -18,10 +18,10 @@ class QuestionPagerAdapter(private val questions: List<QuizQuestion>, private va
         btns.forEachIndexed { i, btn ->
             if (i < q.options.size) {
                 btn.text = "${labels[i]}. ${q.options[i]}"
-                val sel = q.userAnswer == q.options[i]
+                val sel = q.userAnswer == labels[i] // Changed from q.options[i] to labels[i]
                 btn.backgroundTintList = ctx.getColorStateList(if(sel) R.color.color_primary else R.color.color_option_default)
                 btn.setTextColor(ctx.getColor(if(sel) android.R.color.white else R.color.color_on_surface))
-                btn.setOnClickListener { q.userAnswer=q.options[i]; q.isAnswered=true; notifyItemChanged(pos); onAnswer(pos,q.options[i]) }
+                btn.setOnClickListener { q.userAnswer=labels[i]; q.isAnswered=true; notifyItemChanged(pos); onAnswer(pos,labels[i]) } // Changed from q.options[i] to labels[i]
             }
         }
     }
