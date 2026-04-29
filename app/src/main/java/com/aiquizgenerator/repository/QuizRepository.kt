@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import javax.inject.Inject
 import javax.inject.Singleton
-
+import kotlinx.coroutines.delay
 @Singleton
 class QuizRepository @Inject constructor(
     private val api: GeminiApiService,
@@ -20,8 +20,12 @@ class QuizRepository @Inject constructor(
     private val apiKey: String
 ) {
     suspend fun generateQuiz(config: QuizConfig): Resource<List<QuizQuestion>> = withContext(Dispatchers.IO) {
-        try {
-            val prompt = """
+        var lastError = ""
+
+        // Retry up to 3 times with increasing delay
+        repeat(3) { attempt ->
+            try {
+                val prompt = """
 Generate ${config.numberOfQuestions} multiple choice questions from the study material below at ${config.difficulty.label} difficulty.
 Return ONLY valid JSON, no markdown, no explanation:
 {"questions":[{"question":"...","options":["A","B","C","D"],"correct_answer":"A"}]}
@@ -29,14 +33,43 @@ Return ONLY valid JSON, no markdown, no explanation:
 Study Material:
 ${config.extractedText.take(12000)}
 """.trimIndent()
-            val resp = api.generateContent(apiKey, GeminiRequest(listOf(Content(listOf(Part(prompt))))))
-            if (!resp.isSuccessful) return@withContext Resource.Error("API error ${resp.code()}")
-            val text = resp.body()?.candidates?.firstOrNull()?.content?.parts?.firstOrNull()?.text
-                ?: return@withContext Resource.Error("Empty response from Gemini")
-            val questions = parseQuestions(text)
-            if (questions.isEmpty()) Resource.Error("Could not parse questions — check your API key and study material")
-            else Resource.Success(questions)
-        } catch (e: Exception) { Resource.Error(e.localizedMessage ?: "Network error") }
+
+                val resp = api.generateContent(
+                    apiKey,
+                    GeminiRequest(listOf(Content(listOf(Part(prompt)))))
+                )
+
+                // 429 = rate limited — wait then retry
+                if (resp.code() == 429) {
+                    val waitSeconds = (attempt + 1) * 30L  // 30s, 60s, 90s
+                    lastError = "Rate limited. Waiting ${waitSeconds}s before retry ${attempt + 1}/3..."
+                    delay(waitSeconds * 1000)
+                    return@repeat  // try again
+                }
+
+                if (!resp.isSuccessful) {
+                    lastError = "API error ${resp.code()}"
+                    return@repeat
+                }
+
+                val text = resp.body()?.candidates
+                    ?.firstOrNull()?.content?.parts?.firstOrNull()?.text
+                    ?: run { lastError = "Empty response from Gemini"; return@repeat }
+
+                val questions = parseQuestions(text)
+                if (questions.isEmpty()) {
+                    lastError = "Could not parse questions"
+                    return@repeat
+                }
+
+                return@withContext Resource.Success(questions)
+
+            } catch (e: Exception) {
+                lastError = e.localizedMessage ?: "Network error"
+            }
+        }
+
+        Resource.Error(lastError)
     }
 
     private fun parseQuestions(raw: String): List<QuizQuestion> = try {
